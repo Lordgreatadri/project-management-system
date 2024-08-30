@@ -4,6 +4,7 @@ namespace App\Http\Resources\Tasks;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\Users\UserResource;
 use App\Http\Resources\Projects\ProjectResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -21,9 +22,11 @@ class TasksResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "description" => $this->description,
-            "image_path" => $this->image_path,
+            "image_path" => $this->image_path ? Storage::url($this->image_path) : null,
             "status" => $this->status,
             "priority" => $this->priority,
+            "project_id" => $this->project_id,
+            "assigned_to" => $this->assigned_to,
             "due_date" => (new Carbon($this->due_date))->format('Y-m-d'),
             "created_at" => (new Carbon($this->created_at))->format('Y-m-d'),
             "createdBy" => new UserResource($this->createdBy),

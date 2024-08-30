@@ -24,6 +24,16 @@ export default function TasksTabale({tasks, queryParams = null, hideProjectColum
         
     }
 
+
+    const deleteTask = (id, res) => {
+        if(!window.confirm("Are you sure you want to delete this task?")){
+            return;
+        }
+
+        router.delete(route("tasks.destroy", id));
+    };
+
+
     const sortChanged = (name) => {
         if(name === queryParams.sort_field) //if the filed has been sorted already we reverse the direction
         {
@@ -199,13 +209,15 @@ export default function TasksTabale({tasks, queryParams = null, hideProjectColum
                                     <td className="px-3 py-2">{task.createdBy.name}</td>
                                     {/* <td className="px-3 py-2">{task.createdBy.name}</td> */}
                                     <td className="px-3 py-2">{task.assignedUser.name}</td>
-                                    <td className="px-3 py-2">
+                                    <td className="px-3 py-2 text-nowrap">
                                         <Link href={route('tasks.edit', task.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1">
                                             Edit
                                         </Link>
-                                        <Link href={route('tasks.destroy', task.id)}  className="font-medium text-red-600 dark:text-red-500 hover:underline mx-1">
+                                        <button
+                                            onClick={e =>deleteTask(task.id)}
+                                          className="font-medium text-red-600 dark:text-red-500 hover:underline mx-1">
                                             Delete
-                                        </Link>
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
