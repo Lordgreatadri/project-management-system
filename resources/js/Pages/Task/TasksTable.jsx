@@ -196,10 +196,18 @@ export default function TasksTabale({tasks, queryParams = null, hideProjectColum
                                 <tr className="bg-white border-b dark:hover dark:bg-gray-800 dark:border-gray-700" key={task.id}> 
                                     <th className="px-3 py-2">{task.id}</th>
                                     <td className="px-3 py-2"><img className="rounded" style={{width:60, border:0}} src={task.image_path}></img></td>
-                                    <td className="px-3 py-2">{task.name}</td>
+                                    <td className="px-3 py-2">
+                                        
+                                        <Link 
+                                            href={route("tasks.show", task.id)}
+                                                className=" text-white text-nowrap dark:text-gray-100 hover:underline mx-1"
+                                            >
+                                            {task.name}
+                                        </Link>
+                                    </td>
                                     {!hideProjectColumn && (<td className="px-3 py-2">{task.project.name}</td>)}
                                     <td className="px-3 py-2 ">
-                                        <span className={"px-2 py-1 rounded text-white " + TASK_STATUS_CLASS_MAP[task.status]}> {TASK_STATUS_TEXT_MAP[task.status]}</span>
+                                        <span className={"px-2 py-1 rounded text-white text-nowrap " + TASK_STATUS_CLASS_MAP[task.status]}> {TASK_STATUS_TEXT_MAP[task.status]}</span>
                                     </td>
                                     <td className="px-3 py-2 ">
                                         <span className={"px-2 py-1 rounded text-white " + TASK_PRIORITY_CLASS_MAP[task.priority]}> {TASK_PRIORITY_TEXT_MAP[task.priority]}</span>

@@ -91,30 +91,9 @@ class TasksController extends Controller
      */
     public function show(Task $task)
     {
-        $query = $task->tasks();
-
-        $sortField = request("sort_field", "created_at"); // sort by created_at by default if not provided
-        $sortDirection = request("sort_direction", "desc"); // sort by DESC order by default if not provided
-
-
-        if(request("name")) {
-            $query->where("name", "like", "%". request("name"). "%");
-        }
-
-        if(request("status")) {
-            $query->where("status", request("status"));
-        }
-
-        if(request("priority")) {
-            $query->where("priority", request("priority"));
-        }
-
-        $tasks = $query->orderBy($sortField, $sortDirection)->paginate(15)->onEachSide(1);
 
         return inertia("Task/Show", [
-            "task" => new TaskResource($task),
-            "queryParams" => request()->query() ?: null,
-            "tasks" => TasksResource::Collection($tasks) ?: null
+            "task" => new TasksResource($task),
         ]);
     }
 
@@ -153,18 +132,7 @@ class TasksController extends Controller
         }
 
         $data['updated_by'] = Auth::id();
-        // $payload = [
-        //     "id" => $task->id,
-        //     "name" => $data["name"],
-        //     "status" => $data["status"],
-        //     "description" => $data["description"],
-        //     "due_date" => $data["due_date"],
-        //     "assigned_to" => $data["assigned_to"],
-        //     "project_id" => $data["project_id"],
-        //     "priority" => $data["priority"],
-        //     "updated_by" => $data["updated_by"],
-        //     "image_path" => $data["image_path"],
-        // ];
+
         $task->update($data);
 
         return to_route("tasks.index", $task)->with("success", "Task \"$task->name\" was updated successfully");
