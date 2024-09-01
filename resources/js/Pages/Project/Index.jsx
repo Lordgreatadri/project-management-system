@@ -182,8 +182,8 @@ export default function Index({auth, projects, queryParams = null, success}) {
 
                                     <tbody>
                                     
-                                        {projects.data.map(project =>(
-                                            <tr className="bg-white border-b dark:hover dark:bg-gray-800 dark:border-gray-700" key={project.id}> 
+                                        {projects.data.map((project, index) =>(
+                                            <tr className="bg-white border-b dark:hover dark:bg-gray-800 dark:border-gray-700" key={index}> 
                                                 <th className="px-3 py-2">{project.id}</th>
                                                 <td className="px-3 py-2"><img className="rounded" style={{width:60, border:0}} src={project.image_path}></img></td>
                                                 <th className="px-3 py-2">

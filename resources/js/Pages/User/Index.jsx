@@ -153,8 +153,8 @@ export default function Index({auth, users, queryParams = null, success}) {
 
                                     <tbody>
                                     
-                                        {users.data.map(user =>(
-                                            <tr className="bg-white border-b dark:hover dark:bg-gray-800 dark:border-gray-700" key={user.id}> 
+                                        {users.data.map((user, index) =>(
+                                            <tr className="bg-white border-b dark:hover dark:bg-gray-800 dark:border-gray-700" key={index}> 
                                                 <th className="px-3 py-2">{user.id}</th>
                                                 
                                                 <th className="px-3 py-2">

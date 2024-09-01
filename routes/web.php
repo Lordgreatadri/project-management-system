@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Projects\ProjectsController;
 use App\Http\Controllers\Users\UsersController;
@@ -13,8 +14,7 @@ Route::redirect('/', 'dashboard');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', fn() => Inertia::render('Dashboard'))
-        ->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'] )->name('dashboard');
     Route::resource('projects', ProjectsController::class);  
     Route::resource('tasks', TasksController::class);    
     Route::resource('users', UsersController::class);    
